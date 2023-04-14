@@ -19,10 +19,10 @@ public class KafkaConsumerConfig {
 	public ConsumerFactory<String, String> consumerFactory() {
 		// Creating a Map of string-object pairs
 		Map<String, Object> config = new HashMap<>();
-		
+
 		// Adding the Configuration
-		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "TBD");
+		config.put(ConsumerConfig.GROUP_ID_CONFIG, "TBD");
 		config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
@@ -30,10 +30,11 @@ public class KafkaConsumerConfig {
 	}
 
 	// Creating a Listener
+	@Bean
 	public ConcurrentKafkaListenerContainerFactory concurrentKafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
-	
+
 }
