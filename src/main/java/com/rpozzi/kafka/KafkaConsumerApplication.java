@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.kafka.annotation.KafkaListener;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
 public class KafkaConsumerApplication {
@@ -38,6 +43,18 @@ public class KafkaConsumerApplication {
 	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
 	public void consumeTemperature(String in) {
 		logger.info(in);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			JsonNode jsonTree = mapper.readTree(in);
+			// TODO
+			int temperature = jsonTree.get("temperature").intValue();
+		} catch (JsonMappingException e) {
+			logger.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			logger.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@KafkaListener(groupId = "quickstart", topics = "quickstart-events")
