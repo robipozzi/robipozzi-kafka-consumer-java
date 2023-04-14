@@ -48,6 +48,7 @@ public class KafkaConsumerApplication {
 			JsonNode jsonTree = mapper.readTree(in);
 			// TODO
 			int temperature = jsonTree.get("temperature").intValue();
+			int humidity = jsonTree.get("humidity").intValue();
 		} catch (JsonMappingException e) {
 			logger.error(e.getLocalizedMessage());
 			e.printStackTrace();
