@@ -10,11 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.kafka.annotation.KafkaListener;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rpozzi.kafka.dto.Sensor;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
@@ -45,10 +44,8 @@ public class KafkaConsumerApplication {
 		logger.info(in);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			JsonNode jsonTree = mapper.readTree(in);
-			// TODO
-			int temperature = jsonTree.get("temperature").intValue();
-			int humidity = jsonTree.get("humidity").intValue();
+			Sensor sensor = mapper.readValue(in, Sensor.class);
+			logger.info("Temperature = " + sensor.getTemperature() + " - Humidity = " + sensor.getHumidity());
 		} catch (JsonMappingException e) {
 			logger.error(e.getLocalizedMessage());
 			e.printStackTrace();
