@@ -41,7 +41,7 @@ public class KafkaConsumerApplication {
 	
 	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
 	public void consumeTemperature(String in) {
-		logger.info(in);
+		logger.debug(in);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			Sensor sensor = mapper.readValue(in, Sensor.class);
