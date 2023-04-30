@@ -3,6 +3,7 @@ package com.rpozzi.kafka;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,10 @@ import com.rpozzi.kafka.dto.Sensor;
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
 public class KafkaConsumerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApplication.class);
+	@Value(value = "${kafka.topic.temperatures}")
+	private String temperaturesKafkaTopic;
+	@Value(value = "${kafka.topic.quickstartevents}")
+	private String quickstartEventsKafkaTopic;
 	   
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(KafkaConsumerApplication.class, args);
@@ -41,9 +46,10 @@ public class KafkaConsumerApplication {
 	
 	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
 	public void consumeTemperature(String in) {
-		logger.debug(in);
+		logger.info("Reading from '" + temperaturesKafkaTopic + "' Kafka topic ...");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
+			logger.debug("Message read : " + in);
 			Sensor sensor = mapper.readValue(in, Sensor.class);
 			logger.info("Temperature = " + sensor.getTemperature() + " - Humidity = " + sensor.getHumidity());
 		} catch (JsonMappingException e) {
@@ -57,7 +63,8 @@ public class KafkaConsumerApplication {
 
 	@KafkaListener(groupId = "quickstart", topics = "quickstart-events")
 	public void consumeQuickstartEvents(String in) {
-		logger.info(in);
+		logger.info("Reading from '" + quickstartEventsKafkaTopic + "' Kafka topic ...");
+		logger.info("Message read : " + in);
 	}
 
 }
