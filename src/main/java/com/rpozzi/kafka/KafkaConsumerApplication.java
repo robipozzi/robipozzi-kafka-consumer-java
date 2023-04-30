@@ -22,7 +22,7 @@ public class KafkaConsumerApplication {
 	   
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(KafkaConsumerApplication.class, args);
-		logger.info("Application " + ctx.getApplicationName() + " started !!!");
+		logger.info("Application " + ctx.getId() + " started !!!");
 	}
 
 	@Bean
