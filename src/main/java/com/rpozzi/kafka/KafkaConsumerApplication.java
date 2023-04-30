@@ -44,7 +44,7 @@ public class KafkaConsumerApplication {
 	// Kafka Listener for temperature and humidity sensor
 	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
 	public void consumeTemperature(String in) {
-		temperatureSensorSrv.readMessage(in);
+		temperatureSensorSrv.consume(in);
 	}
 	
 	/*****************************************************/

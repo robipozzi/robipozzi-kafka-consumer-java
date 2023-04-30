@@ -15,7 +15,7 @@ public class TemperatureSensorService {
 	@Value(value = "${kafka.topic.temperatures}")
 	private String temperaturesKafkaTopic;
 
-	public void readMessage(String in) {
+	public void consume(String in) {
 		logger.info("Reading from '" + temperaturesKafkaTopic + "' Kafka topic ...");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
