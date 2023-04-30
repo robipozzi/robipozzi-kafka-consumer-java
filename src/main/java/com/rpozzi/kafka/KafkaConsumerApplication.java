@@ -18,12 +18,12 @@ import com.rpozzi.kafka.service.TemperatureSensorService;
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
 public class KafkaConsumerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApplication.class);
-	@Autowired
-	private TemperatureSensorService temperatureSensorSrv;
 	@Value(value = "${kafka.topic.temperatures}")
 	private String temperaturesKafkaTopic;
 	@Value(value = "${kafka.topic.quickstartevents}")
 	private String quickstartEventsKafkaTopic;
+	@Autowired
+	private TemperatureSensorService temperatureSensorSrv;
 	   
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(KafkaConsumerApplication.class, args);
@@ -34,15 +34,17 @@ public class KafkaConsumerApplication {
 	/****** Kafka Listeners methods - Section START ******/
 	/*****************************************************/
 	
-	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
-	public void consumeTemperature(String in) {
-		temperatureSensorSrv.readMessage(in);
-	}
-
+	// Kafka Listener for Quickstart Events (see Apache Kafka Get started https://kafka.apache.org/quickstart)
 	@KafkaListener(groupId = "quickstart", topics = "quickstart-events")
 	public void consumeQuickstartEvents(String in) {
 		logger.info("Reading from '" + quickstartEventsKafkaTopic + "' Kafka topic ...");
 		logger.info("Message read : " + in);
+	}
+	
+	// Kafka Listener for temperature and humidity sensor
+	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
+	public void consumeTemperature(String in) {
+		temperatureSensorSrv.readMessage(in);
 	}
 	
 	/*****************************************************/
