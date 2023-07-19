@@ -22,6 +22,8 @@ public class KafkaConsumerApplication {
 	private String temperaturesKafkaTopic;
 	@Value(value = "${kafka.topic.quickstartevents}")
 	private String quickstartEventsKafkaTopic;
+	@Value(value = "${kafka.topic.plaintextinput}")
+	private String plainTextKafkaTopic;
 	@Autowired
 	private TemperatureSensorService temperatureSensorSrv;
 	   
@@ -34,6 +36,12 @@ public class KafkaConsumerApplication {
 	/****** Kafka Listeners methods - Section START ******/
 	/*****************************************************/
 	
+	// Kafka Listener for temperature and humidity sensor
+	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
+	public void consumeTemperature(String in) {
+		temperatureSensorSrv.consume(in);
+	}
+		
 	// Kafka Listener for Quickstart Events (see Apache Kafka Get started https://kafka.apache.org/quickstart)
 	@KafkaListener(groupId = "quickstart", topics = "quickstart-events")
 	public void consumeQuickstartEvents(String in) {
@@ -41,10 +49,11 @@ public class KafkaConsumerApplication {
 		logger.info("Message read : " + in);
 	}
 	
-	// Kafka Listener for temperature and humidity sensor
-	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
-	public void consumeTemperature(String in) {
-		temperatureSensorSrv.consume(in);
+	// Kafka Listener for plain text input
+	@KafkaListener(groupId = "streams-plaintext", topics = "streams-plaintext-input")
+	public void consumePlainText(String in) {
+		logger.info("Reading from '" + plainTextKafkaTopic + "' Kafka topic ...");
+		logger.info("Message read : " + in);
 	}
 	
 	/*****************************************************/
