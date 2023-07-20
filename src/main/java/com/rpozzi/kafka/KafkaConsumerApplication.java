@@ -24,6 +24,9 @@ public class KafkaConsumerApplication {
 	private String quickstartEventsKafkaTopic;
 	@Value(value = "${kafka.topic.plaintextinput}")
 	private String plainTextKafkaTopic;
+	@Value(value = "${kafka.topic.wordcountoutput}")
+	private String wordCountKafkaTopic;
+	
 	@Autowired
 	private TemperatureSensorService temperatureSensorSrv;
 	   
@@ -53,6 +56,13 @@ public class KafkaConsumerApplication {
 	@KafkaListener(groupId = "streams-plaintext", topics = "streams-plaintext-input")
 	public void consumePlainText(String in) {
 		logger.info("Reading from '" + plainTextKafkaTopic + "' Kafka topic ...");
+		logger.info("Message read : " + in);
+	}
+	
+	// Kafka Listener for plain text input
+	@KafkaListener(groupId = "streams-plaintext", topics = "streams-wordcount-output")
+	public void consumeWordCount(String in) {
+		logger.info("Reading from '" + wordCountKafkaTopic + "' Kafka topic ...");
 		logger.info("Message read : " + in);
 	}
 	
