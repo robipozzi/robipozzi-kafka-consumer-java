@@ -28,7 +28,6 @@ public class KafkaConsumerApplication {
 	private String plainTextKafkaTopic;
 	@Value(value = "${kafka.topic.wordcountoutput}")
 	private String wordCountKafkaTopic;
-	
 	@Autowired
 	private TemperatureSensorService temperatureSensorSrv;
 	   
