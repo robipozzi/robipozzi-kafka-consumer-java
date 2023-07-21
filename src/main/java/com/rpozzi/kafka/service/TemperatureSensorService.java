@@ -16,7 +16,7 @@ public class TemperatureSensorService {
 	private String temperaturesKafkaTopic;
 
 	public void consume(String in) {
-		logger.info("Reading from '" + temperaturesKafkaTopic + "' Kafka topic ...");
+		logger.info("Reading from '" + temperaturesKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			logger.debug("Message read : " + in);
