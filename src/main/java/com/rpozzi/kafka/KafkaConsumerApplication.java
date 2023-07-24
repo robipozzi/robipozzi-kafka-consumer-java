@@ -12,7 +12,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.kafka.annotation.KafkaListener;
+import com.rpozzi.kafka.service.PlainTextService;
+import com.rpozzi.kafka.service.QuickstartService;
 import com.rpozzi.kafka.service.TemperatureSensorService;
+import com.rpozzi.kafka.service.WordCountService;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
@@ -20,16 +23,14 @@ public class KafkaConsumerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApplication.class);
 	@Value(value = "${spring.kafka.bootstrap-servers}")
 	private String kafkaBootstrapServers;
-	@Value(value = "${kafka.topic.temperatures}")
-	private String temperaturesKafkaTopic;
-	@Value(value = "${kafka.topic.quickstartevents}")
-	private String quickstartEventsKafkaTopic;
-	@Value(value = "${kafka.topic.plaintextinput}")
-	private String plainTextKafkaTopic;
-	@Value(value = "${kafka.topic.wordcountoutput}")
-	private String wordCountKafkaTopic;
 	@Autowired
 	private TemperatureSensorService temperatureSensorSrv;
+	@Autowired
+	private QuickstartService quickstartSrv;
+	@Autowired
+	private PlainTextService plainTextSrv;
+	@Autowired
+	private WordCountService wordCountSrv;
 	   
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaConsumerApplication.class, args);
@@ -42,26 +43,27 @@ public class KafkaConsumerApplication {
 	// Kafka Listener for temperature and humidity sensor - using SpringBoot Kafka APIs
 	@KafkaListener(groupId = "robi-temperatures", topics = "temperatures")
 	public void consumeTemperature(String in) {
-		logger.info("Consuming messages from temperatures ...");
+		logger.debug("===> running consumeTemperature(String in) method ...");
 		temperatureSensorSrv.consume(in);
 	}
 		
 	// Kafka Listener for Quickstart Events (see Apache Kafka Get started https://kafka.apache.org/quickstart) - using SpringBoot Kafka APIs
 	@KafkaListener(groupId = "quickstart", topics = "quickstart-events")
 	public void consumeQuickstartEvents(String in) {
-		logger.info("Reading from '" + quickstartEventsKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
-		logger.info("Message read : " + in);
+		logger.debug("===> running consumeQuickstartEvents(String in) method ...");
+		quickstartSrv.consume(in);
 	}
 	
 	// Kafka Listener for plain text input
 	@KafkaListener(groupId = "streams-plaintext", topics = "streams-plaintext-input")
 	public void consumePlainText(String in) {
-		logger.info("Reading from '" + plainTextKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
-		logger.info("Message read : " + in);
+		logger.debug("===> running consumePlainText(String in) method ...");
+		plainTextSrv.consume(in);
 	}
 	
 	// [NOT USED] Kafka Listener for plain text input - using Kafka client APIs
 	/*public void consumePlainText() {
+	    logger.debug("===> running consumePlainText() method ...");
 		Properties props = new Properties();
         props.put("bootstrap.servers", kafkaBootstrapServers);
         props.put("group.id", "streams-plaintext");
@@ -89,8 +91,8 @@ public class KafkaConsumerApplication {
 	// Kafka Listener for plain text input - using SpringBoot Kafka APIs
 	@KafkaListener(groupId = "streams-plaintext", topics = "streams-wordcount-output")
 	public void consumeWordCount(String in) {
-		logger.info("Reading from '" + wordCountKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
-		logger.info("Message read : " + in);
+		logger.debug("===> running consumeWordCount(String in) method ...");
+		wordCountSrv.consume(in);
 	}
 	
 	/*****************************************************/
