@@ -181,4 +181,9 @@ public class KafkaConsumerApplication {
 
 }
 ```
+The application is started via *main()* method and, as you can see, **[KafkaConsumerApplication](src/main/java/com/rpozzi/kafka/KafkaConsumerApplication.java)**
+class has several methods, each marked with a **@KafkaListener** annotation: this simple piece of code instructs Spring Boot framework to treat these methods 
+as Kafka listener to the topic described in the annotation, calling the method whenever a message is published to the linked topic.
+
+
 [TODO]
