@@ -45,16 +45,22 @@ https://github.com/robipozzi/robipozzi-kafka-producer-java
 * **Quickstart events consumer**: Kafka provides a very convenient way to start producers via command line, refer to 
 https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
 * **Plaintext consumer**: refer to  https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
+on how to start a producer based on Kafka command line tools
 * **Word count consumer**: refer to  https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
+on how to start a producer based on Kafka command line tools
 
 ## How the application works
 The application implements several Kafka Consumers that consume messages from several Kafka topics  
 (configurable in the **[application.properties](src/main/resources/application.properties)** configuration file:
 
-* **Temperature consumer**: 
-* **Quickstart events consumer**:
-* **Plaintext consumer**:
-* **Word count consumer**: 
+* **Temperature consumer**: this consumer consumes messages from a *temperatures* topic 
+(configurable in the **[application.properties](src/main/resources/application.properties)** configuration file)
+* **Quickstart events consumer**: this consumer consumes messages from a *quickstart-events* topic, as published following Kafka Quickstart example
+in Kafka official website https://kafka.apache.org/quickstart
+* **Plaintext consumer**: this consumer consumes messages from a *streams-plaintext-input* topic, which is the input topic of the sample Kafka Stream 
+application example in Kafka official website https://kafka.apache.org/35/documentation/streams/quickstart
+* **Word count consumer**: this consumer consumes messages from a *streams-wordcount-output* topic, as published by Kafka Stream application example
+in Kafka official website https://kafka.apache.org/35/documentation/streams/quickstart
  
 As said in the introduction, the code for this application is based on:
 - **Maven**: here is the **[POM](pom.xml)** that defines project configuration; the library dependencies section is reported here below
