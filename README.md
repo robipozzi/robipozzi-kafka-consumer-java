@@ -40,15 +40,12 @@ Once the Kafka cluster has been setup, you can find details on how to manage top
 ### Producers and consumers using Kafka command line tools
 The code in this repository is focused on Kafka consumers exclusively, so you won't find any example of usable Kafka producer
 
-* **Temperature consumer**: producer that publish message that can then be consumed by this consumer can be find at this other repo 
+* **Temperature consumer**: a producer that publishes messages that can then be consumed by this consumer can be find at this other repository
 https://github.com/robipozzi/robipozzi-kafka-producer-java
-* **Quickstart events consumer**: 
-* **Plaintext consumer**:
-* **Word count consumer**: 
-
-luckily
-Kafka provides a very convenient way to start producers via command line: refer to 
-https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples.
+* **Quickstart events consumer**: Kafka provides a very convenient way to start producers via command line, refer to 
+https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
+* **Plaintext consumer**: refer to  https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
+* **Word count consumer**: refer to  https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools for details and examples
 
 ## How the application works
 The application implements several Kafka Consumers that consume messages from several Kafka topics  
