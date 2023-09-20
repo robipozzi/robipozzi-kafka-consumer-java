@@ -201,7 +201,7 @@ is injected via an **@Autowired** annotation, as reported in the following examp
 @Autowired
 private TemperatureSensorService temperatureSensorSrv;
 ```
-Every service extends the abstract class **AKafkaConsumer** and implement the **consumeMsg()** method, where the actual logic is implemented; as an example
+Every service extends the abstract class **AKafkaConsumer** and implements the **consumeMsg()** method, where the actual logic is implemented; as an example
 the **TemperatureSensorService** code is reported:
 ```
 @Service
