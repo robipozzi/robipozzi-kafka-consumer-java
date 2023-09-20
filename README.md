@@ -195,8 +195,14 @@ The application is started via *main()* method and, as you can see, **[KafkaCons
 class has several methods, each marked with a **@KafkaListener** annotation: this simple piece of code instructs Spring Boot framework to treat these methods 
 as Kafka listener to the topic described in the annotation, calling the method whenever a message is published to the linked topic.
 
-
-
+The logic to consume the message from the Kafka topic is then actually implemented by a specific service for each listener; an instance of each service 
+is injected via an **@Autowired** annotation, as reported in the following example: 
+```
+@Autowired
+private TemperatureSensorService temperatureSensorSrv;
+```
+Every service extends the abstract class **AKafkaConsumer** and implement the **consumeMsg()** method, where the actual logic is implemented; as an example
+the **TemperatureSensorService** code is reported:
 ```
 @Service
 public class TemperatureSensorService extends AKafkaConsumer {
@@ -229,5 +235,3 @@ public class TemperatureSensorService extends AKafkaConsumer {
 	}
 }
 ```
-
-[TODO]
