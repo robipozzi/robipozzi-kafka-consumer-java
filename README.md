@@ -38,7 +38,9 @@ for details regarding this option.
 Once the Kafka cluster has been setup, you can find details on how to manage topics (i.e.: create, delete, ...) at https://github.com/robipozzi/robipozzi-kafka#create-delete-and-describe-kafka-topics
 
 ### Producers and consumers using Kafka command line tools
-The code in this repository is focused on Kafka consumers exclusively, so you won't find any example of usable Kafka producer
+The code in this repository is focused on Kafka consumers exclusively, so you won't find any example of usable Kafka producer.
+
+Several Kafka consumers are implemented in this repository, for each one you can find a suitable Kafka producer as described here below:
 
 * **Temperature consumer**: a producer that publishes messages that can then be consumed by this consumer can be find at this other repository
 https://github.com/robipozzi/robipozzi-kafka-producer-java
@@ -185,5 +187,39 @@ The application is started via *main()* method and, as you can see, **[KafkaCons
 class has several methods, each marked with a **@KafkaListener** annotation: this simple piece of code instructs Spring Boot framework to treat these methods 
 as Kafka listener to the topic described in the annotation, calling the method whenever a message is published to the linked topic.
 
+
+
+```
+@Service
+public class TemperatureSensorService extends AKafkaConsumer {
+	@Value(value = "${kafka.topic.temperatures}")
+	private String temperaturesKafkaTopic;
+
+	@Override
+	protected void consumeMsg(String in) {
+		logger.debug("===> running consumeMsg(String in) method ...");
+		logger.info("Reading from '" + temperaturesKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			logger.debug("Message read : " + in);
+			Sensor sensor = mapper.readValue(in, Sensor.class);
+			logger.info("Temperature = " + sensor.getTemperature() + " - Humidity = " + sensor.getHumidity());
+		} catch (JsonMappingException e) {
+			logger.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			logger.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void customizeConsumerConfigProps() {
+		consumerConfigProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		consumerConfigProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+		consumerConfigProps.put(ConsumerConfig.GROUP_ID_CONFIG, "robi-temperatures");
+	}
+}
+```
 
 [TODO]
