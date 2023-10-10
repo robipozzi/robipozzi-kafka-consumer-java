@@ -1,10 +1,10 @@
 # Kafka Java Consumer
 - [Introduction](#introduction)
 - [Setup and run Kafka](#setup-and-run-kafka)
-    - [Run Kafka cluster on local environment](#run-Kafka-cluster-on-local-environment)
-    - [Run Kafka cluster on Confluent](#run-Kafka-cluster-on-confluent)
+    - [Run Kafka cluster on local environment](#run-kafka-cluster-on-local-environment)
+    - [Run Kafka cluster on Confluent](#run-kafka-cluster-on-confluent)
     - [Create, delete and describe Kafka topics](#create-delete-and-describe-kafka-topics)
-    - [Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools)
+    - [Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools)
 - [How the application works](#how-the-application-works)
     
 ## Introduction
@@ -57,19 +57,19 @@ The application implements several Kafka Consumers that consume messages from se
 
 * **Temperature consumer**: this consumer consumes messages from a *temperatures* topic 
 (configurable in the **[application.properties](src/main/resources/application.properties)** configuration file). As described in paragraph 
-[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools), an implementation of a Kafka producer 
+[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools), an implementation of a Kafka producer 
 that publishes suitable messages for this consumer to the *temperatures* topic can be find at https://github.com/robipozzi/robipozzi-kafka-producer-java
 * **Quickstart events consumer**: this consumer consumes messages from a *quickstart-events* topic, as published following Kafka Quickstart example
 in Kafka official website https://kafka.apache.org/quickstart. As described in paragraph 
-[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools), an implementation of a Kafka producer 
+[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools), an implementation of a Kafka producer 
 that publishes suitable messages for this consumer to the *quickstart-events* topic is available at https://github.com/robipozzi/robipozzi-kafka
 * **Plaintext consumer**: this consumer consumes messages from a *streams-plaintext-input* topic, which is the input topic of the sample Kafka Stream 
 application example in Kafka official website https://kafka.apache.org/35/documentation/streams/quickstart. As described in paragraph 
-[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools), an implementation of a Kafka producer 
+[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools), an implementation of a Kafka producer 
 that publishes suitable messages for this consumer to the *streams-plaintext-input* topic is available at https://github.com/robipozzi/robipozzi-kafka
 * **Word count consumer**: this consumer consumes messages from a *streams-wordcount-output* topic, as published by Kafka Stream application example
 in Kafka official website https://kafka.apache.org/35/documentation/streams/quickstart. As described in paragraph 
-[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools), an implementation of a Kafka producer 
+[Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools), an implementation of a Kafka producer 
 that publishes suitable messages for this consumer to the *streams-wordcount-output* topic is available at https://github.com/robipozzi/robipozzi-kafka
  
 As said in the introduction, the code for this application is based on:
