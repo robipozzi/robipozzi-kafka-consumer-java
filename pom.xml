@@ -36,7 +36,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -81,5 +80,4 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>
