@@ -100,7 +100,7 @@ public class KafkaConsumerApplication {
 	/*****************************************************/
 	
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+	CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			logger.debug("Let's inspect the beans provided by Spring Boot:");
 			logger.debug("************** Spring Boot beans - START **************");
